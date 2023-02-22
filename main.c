@@ -4,12 +4,12 @@
 #include <TlHelp32.h>
 #include <stdio.h>
 
-const wchar_t* procName = NULL; // L"Silver.exe";
-const char* dllPath = NULL; // HookingDebugConsole.dll
+const wchar_t* procName = NULL;
+const char* dllPath = NULL;
 
 void HandleArgs(int argc, char* argv[]) {
-	procName = malloc(sizeof(wchar_t) * strlen(argv[1]));
-	mbstowcs(procName, argv[1], strlen(argv[1]));
+	procName = malloc(sizeof(wchar_t) * (strlen(argv[1]) + 1));
+	mbstowcs(procName, argv[1], strlen(argv[1]) + 1);
 
 	// Don't need to copy, argv never goes out of scope.
 	dllPath = argv[2];
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 
 	DWORD procId = 0;
 
-	printf("Waiting for process... ");
+	printf("Waiting for process \"%ls\"... ", procName);
 	while (!procId)
 	{
 		procId = GetProcId(procName);
@@ -89,4 +89,3 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
-
