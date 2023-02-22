@@ -8,5 +8,7 @@ If the process is 32bit, SimpleHooker and the payload must be built as 32bit as 
 Usually used in a batch file with something like the following lines.
 
 `start SimpleHooker.exe <process_name> <dll_path>`
+
 `<Process.exe>`
+
 `pause`
